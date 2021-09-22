@@ -3,6 +3,7 @@ package com.example.roomdatabaseexample.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.roomdatabaseexample.model.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
@@ -19,5 +20,8 @@ interface UserDao {
 
     @Query("DELETE FROM user_table")
      fun deleteAllUsers()
+
+    @Query("SELECT * FROM user_table WHERE firstName LIKE :searchQuery OR lastName LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): LiveData<List<User>>
 
 }

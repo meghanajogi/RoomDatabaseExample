@@ -6,4 +6,12 @@
         android:icon="@drawable/ic_baseline_delete_24"
         android:iconTint="@android:color/white"
         app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/menu_search"
+        android:title="Search"
+        android:visible="false"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:iconTint="@android:color/white"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom"/>
 </menu>

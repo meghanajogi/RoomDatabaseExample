@@ -3,6 +3,7 @@ package com.example.roomdatabaseexample.repository
 import androidx.lifecycle.LiveData
 import com.example.roomdatabaseexample.data.UserDao
 import com.example.roomdatabaseexample.model.User
+import kotlinx.coroutines.flow.Flow
 
 class UserRepository(private val userDao: UserDao) {
 
@@ -20,5 +21,8 @@ class UserRepository(private val userDao: UserDao) {
 
     suspend fun deleteAllUsers(){
         userDao.deleteAllUsers()
+    }
+    fun searchDatabase(searchQuery:String): LiveData<List<User>> {
+        return  userDao.searchDatabase(searchQuery)
     }
 }

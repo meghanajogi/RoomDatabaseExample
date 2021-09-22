@@ -8,6 +8,7 @@ import com.example.roomdatabaseexample.data.UserDatabase
 import com.example.roomdatabaseexample.repository.UserRepository
 import com.example.roomdatabaseexample.model.User
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application):AndroidViewModel(application) {
@@ -41,5 +42,10 @@ class UserViewModel(application: Application):AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAllUsers()
         }
+    }
+
+    fun searchDatabase(searchQuery:String): LiveData<List<User>> {
+         return repository.searchDatabase(searchQuery)
+
     }
 }
