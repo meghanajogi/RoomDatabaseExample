@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter
 
 
 @Suppress("UNCHECKED_CAST")
-class ListFragment : Fragment(), SearchView.OnQueryTextListener {
+class ListFragment : Fragment(){
 
 
     private lateinit var mUserViewModel: UserViewModel
@@ -55,13 +55,6 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         return view
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_menu, menu)
-        val search=menu.findItem(R.id.menu_search)
-        val searchView=search?.actionView as? SearchView
-        searchView?.isSubmitButtonEnabled=true
-        searchView?.setOnQueryTextListener(this)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.menu_delete){
@@ -84,28 +77,4 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         builder.create().show()
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-
-        return true
-    }
-
-    override fun onQueryTextChange(query: String?): Boolean {
-        if (query != null) {
-            viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                searchDatabase(query)
-            }
-
-        }
-        return true
-    }
-
-    private  fun searchDatabase(query:String){
-        val searchQuery="%$query%"
-     mUserViewModel.searchDatabase(searchQuery).observe(this, Observer {
-         it.let {  adapter.setData(it)}
-     })
-
-
-
-        }
     }
